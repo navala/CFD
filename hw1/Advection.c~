@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+#define M 50
+#define A 1.0
+#define tmax 1.0
+#define dt 0.000001
+
+
+void upwind(double *out, double *in){
+  int i;
+  double h = (XMAX - XMIN)/M;
+
+  for(i = 0; i < M; i++)
+    {
+      if(i == 0)
+	out[i] = in[i] + dt*A/(h)*(in[M-1] - in[i]);
+      else
+	out[i] = in[i] + dt*A/(h)*(in[i-1] - in[i]);
+    }
+  return;
+}
+
+void central(double * out, double *in){
+  int i;
+  double h = (XMAX - XMIN)/M;
+  
+  for(i = 0; i < M; i++){
+    if(i == 0)
+      out[i] = in[i] + dt*A/(2*h)
